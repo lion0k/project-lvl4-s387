@@ -5,7 +5,7 @@ install:
 	composer install
 
 lint:
-	composer run-script phpcs -- --standard=PSR12 public routes app
+	composer --ansi run-script phpcs -- --standard=PSR2 --extensions=php routes tests app
 
 lint-fix:
 	composer run-script phpcbf -- --standard=PSR12 public routes app
@@ -33,6 +33,3 @@ release:
 
 run:
 	php -S localhost:8000 -t public
-
-logs:
-	tail -f storage/logs/lumen-2019-01-23.log
