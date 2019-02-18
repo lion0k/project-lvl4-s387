@@ -1,12 +1,15 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
+    "description": "Task manager based on Laravel Framework.",
+    "keywords": ["task manager", "framework", "laravel"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Abramov",
+            "email": "li0n0km0nk@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
