@@ -69,7 +69,6 @@
             "@php artisan ide-helper:meta"
         ],
         "phpcs": "phpcs",
-        "phpcbf": "phpcbf",
         "phpunit": "phpunit --colors=always",
         "test": "phpunit tests"
     }

@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
+    \Log::debug('Log message from /');
     return view('welcome');
 });
-
 
 Auth::routes();
 
