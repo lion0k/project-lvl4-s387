@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.26 on 2019-02-18 10:43:25.
+ * Generated for Laravel 5.7.26 on 2019-02-19 13:55:59.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1348,7 +1348,7 @@ namespace Illuminate\Support\Facades {
         public static function handle($input, $output = null)
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::handle($input, $output);
+            return \SimpleTaskManager\Console\Kernel::handle($input, $output);
         }
         
         /**
@@ -1362,7 +1362,7 @@ namespace Illuminate\Support\Facades {
         public static function terminate($input, $status)
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::terminate($input, $status);
+            \SimpleTaskManager\Console\Kernel::terminate($input, $status);
         }
         
         /**
@@ -1376,7 +1376,7 @@ namespace Illuminate\Support\Facades {
         public static function command($signature, $callback)
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::command($signature, $callback);
+            return \SimpleTaskManager\Console\Kernel::command($signature, $callback);
         }
         
         /**
@@ -1389,7 +1389,7 @@ namespace Illuminate\Support\Facades {
         public static function registerCommand($command)
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::registerCommand($command);
+            \SimpleTaskManager\Console\Kernel::registerCommand($command);
         }
         
         /**
@@ -1404,7 +1404,7 @@ namespace Illuminate\Support\Facades {
         public static function call($command, $parameters = array(), $outputBuffer = null)
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::call($command, $parameters, $outputBuffer);
+            return \SimpleTaskManager\Console\Kernel::call($command, $parameters, $outputBuffer);
         }
         
         /**
@@ -1418,7 +1418,7 @@ namespace Illuminate\Support\Facades {
         public static function queue($command, $parameters = array())
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::queue($command, $parameters);
+            return \SimpleTaskManager\Console\Kernel::queue($command, $parameters);
         }
         
         /**
@@ -1430,7 +1430,7 @@ namespace Illuminate\Support\Facades {
         public static function all()
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::all();
+            return \SimpleTaskManager\Console\Kernel::all();
         }
         
         /**
@@ -1442,7 +1442,7 @@ namespace Illuminate\Support\Facades {
         public static function output()
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::output();
+            return \SimpleTaskManager\Console\Kernel::output();
         }
         
         /**
@@ -1454,7 +1454,7 @@ namespace Illuminate\Support\Facades {
         public static function bootstrap()
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::bootstrap();
+            \SimpleTaskManager\Console\Kernel::bootstrap();
         }
         
         /**
@@ -1467,7 +1467,7 @@ namespace Illuminate\Support\Facades {
         public static function setArtisan($artisan)
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::setArtisan($artisan);
+            \SimpleTaskManager\Console\Kernel::setArtisan($artisan);
         }
          
     }
@@ -1644,7 +1644,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \SimpleTaskManager\User|null 
          * @static 
          */ 
         public static function user()
@@ -1679,7 +1679,7 @@ namespace Illuminate\Support\Facades {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false 
+         * @return \SimpleTaskManager\User|false 
          * @static 
          */ 
         public static function onceUsingId($id)
@@ -1743,7 +1743,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User|false 
+         * @return \SimpleTaskManager\User|false 
          * @static 
          */ 
         public static function loginUsingId($id, $remember = false)
@@ -1805,7 +1805,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \SimpleTaskManager\User 
          * @static 
          */ 
         public static function getLastAttempted()
@@ -1907,7 +1907,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \SimpleTaskManager\User|null 
          * @static 
          */ 
         public static function getUser()
@@ -1953,7 +1953,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if current user is authenticated. If not, throw an exception.
          *
-         * @return \App\User 
+         * @return \SimpleTaskManager\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */ 
@@ -14046,6 +14046,114 @@ namespace Barryvdh\Debugbar {
  
 }
 
+namespace Laracasts\Flash { 
+
+    /**
+     * 
+     *
+     */ 
+    class Flash {
+        
+        /**
+         * Flash an information message.
+         *
+         * @param string|null $message
+         * @return $this 
+         * @static 
+         */ 
+        public static function info($message = null)
+        {
+            return \Laracasts\Flash\FlashNotifier::info($message);
+        }
+        
+        /**
+         * Flash a success message.
+         *
+         * @param string|null $message
+         * @return $this 
+         * @static 
+         */ 
+        public static function success($message = null)
+        {
+            return \Laracasts\Flash\FlashNotifier::success($message);
+        }
+        
+        /**
+         * Flash an error message.
+         *
+         * @param string|null $message
+         * @return $this 
+         * @static 
+         */ 
+        public static function error($message = null)
+        {
+            return \Laracasts\Flash\FlashNotifier::error($message);
+        }
+        
+        /**
+         * Flash a warning message.
+         *
+         * @param string|null $message
+         * @return $this 
+         * @static 
+         */ 
+        public static function warning($message = null)
+        {
+            return \Laracasts\Flash\FlashNotifier::warning($message);
+        }
+        
+        /**
+         * Flash a general message.
+         *
+         * @param string|null $message
+         * @param string|null $level
+         * @return $this 
+         * @static 
+         */ 
+        public static function message($message = null, $level = null)
+        {
+            return \Laracasts\Flash\FlashNotifier::message($message, $level);
+        }
+        
+        /**
+         * Flash an overlay modal.
+         *
+         * @param string|null $message
+         * @param string $title
+         * @return $this 
+         * @static 
+         */ 
+        public static function overlay($message = null, $title = 'Notice')
+        {
+            return \Laracasts\Flash\FlashNotifier::overlay($message, $title);
+        }
+        
+        /**
+         * Add an "important" flash to the session.
+         *
+         * @return $this 
+         * @static 
+         */ 
+        public static function important()
+        {
+            return \Laracasts\Flash\FlashNotifier::important();
+        }
+        
+        /**
+         * Clear all registered messages.
+         *
+         * @return $this 
+         * @static 
+         */ 
+        public static function clear()
+        {
+            return \Laracasts\Flash\FlashNotifier::clear();
+        }
+         
+    }
+ 
+}
+
 
 namespace  { 
 
@@ -16479,6 +16587,8 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
+
+    class Flash extends \Laracasts\Flash\Flash {}
  
 }
 

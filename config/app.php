@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'SimpleTaskManager'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -169,11 +169,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        SimpleTaskManager\Providers\AppServiceProvider::class,
+        SimpleTaskManager\Providers\AuthServiceProvider::class,
+        // SimpleTaskManager\Providers\BroadcastServiceProvider::class,
+        SimpleTaskManager\Providers\EventServiceProvider::class,
+        SimpleTaskManager\Providers\RouteServiceProvider::class,
 
     ],
 

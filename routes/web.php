@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    \Log::debug('Log message from /');
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('index');
+Route::get('/home', 'HomeController@home')->name('home');
+
+Route::get('/users', 'UsersShowController@index')->name('users');
+Route::get('/user/edit', 'UserController@edit')->name('user.edit');
+Route::patch('/user', 'UserController@update')->name('user.update');
+Route::delete('/user', 'UserController@destroy')->name('user.delete');
