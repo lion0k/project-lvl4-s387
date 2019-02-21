@@ -14,8 +14,13 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ secure_asset('css/index.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    @if (env('APP_ENV') === 'production')
+        <link href="{{ secure_asset('css/index.css') }}" rel="stylesheet">
+        <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @endif
 </head>
 <body>
     <div id="app">
@@ -86,7 +91,10 @@
     </div>
 
 <!-- Scripts -->
-<script src="{{ secure_asset('js/app.js') }}" defer></script>
-
+    @if (env('APP_ENV') === 'production')
+        <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    @else
+        <script src="{{ asset('js/app.js') }}" defer></script>
+    @endif
 </body>
 </html>
