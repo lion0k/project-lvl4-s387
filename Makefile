@@ -10,7 +10,7 @@ lint:
 lint-fix:
 	composer run-script phpcbf -- --standard=PSR12 public routes app
 
-test2:
+testTravis:
 	composer run-script phpunit tests
 
 reload:
