@@ -5,10 +5,10 @@ install:
 	composer install
 
 lint:
-	composer --ansi run-script phpcs -- --standard=PSR2 --extensions=php routes tests app
+	composer --ansi run-script phpcs -- --standard=PSR12 --extensions=php routes tests app/Http
 
 lint-fix:
-	composer run-script phpcbf -- --standard=PSR12 public routes app
+	composer run-script phpcbf -- --standard=PSR12 --extensions=php routes tests app/Http
 
 testTravis:
 	composer run-script phpunit tests
@@ -41,16 +41,16 @@ docker-build:
 	@docker-compose up --build -d
 
 test:
-	@docker exec app_php-cli_1 vendor/bin/phpunit --color=always
+	@docker-compose exec php-cli vendor/bin/phpunit
 
 assets-install:
-	@docker exec app_node_1 yarn install
+	@docker-compose exec node yarn install
 
 assets-dev:
-	@docker exec app_node_1 yarn run dev
+	@docker-compose exec node yarn run dev
 
 assets-watch:
-	@docker exec app_node_1 yarn run watch
+	@docker-compose exec node yarn run watch
 
 perm:
 	sudo chown ${USER}:${USER} bootstrap/cache -R

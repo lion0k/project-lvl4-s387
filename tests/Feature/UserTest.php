@@ -42,10 +42,10 @@ class UserTest extends TestCase
         $password = Hash::make('you know nothing');
 
         $userData = [
-        'name' => 'John Snow',
-        'email' => 'john@winterfell.com',
-        'password' => $password,
-        'password_confirmation' => $password,
+            'name' => 'John Snow',
+            'email' => 'john@winterfell.com',
+            'password' => $password,
+            'password_confirmation' => $password,
         ];
 
         $this->post(route('register'), $userData)->assertRedirect(route('home'));
