@@ -16,18 +16,11 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        $getDefaultStatusForNewTask = function ($status) {
-            return DB::table('task_statuses')
-                ->where('name', '=', $status)
-                ->first()
-                ->pluck('id');
-        };
-
-        Schema::create($this->table, function (Blueprint $table) use ($getDefaultStatusForNewTask) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('status_id')->unsigned()->default($getDefaultStatusForNewTask('New'));
+            $table->integer('status_id')->unsigned()->default(1);
             $table->integer('creator_id')->unsigned();
             $table->integer('assignedTo_id')->unsigned();
             $table->timestamps();
