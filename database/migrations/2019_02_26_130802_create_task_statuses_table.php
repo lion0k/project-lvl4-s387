@@ -6,6 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTaskStatusesTable extends Migration
 {
+
+    protected $table = 'task_statuses';
+
     /**
      * Run the migrations.
      *
@@ -13,10 +16,19 @@ class CreateTaskStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('task_statuses', function (Blueprint $table) {
+
+        Schema::create($this->table, function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->unique();
             $table->timestamps();
         });
+
+        DB::table($this->table)->insert([
+                ['name' => 'New'],
+                ['name' => 'InProgress'],
+                ['name' => 'OnTesting'],
+                ['name' => 'Done'],
+            ]);
     }
 
     /**
@@ -26,6 +38,6 @@ class CreateTaskStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_statuses');
+        Schema::dropIfExists($this->table);
     }
 }
