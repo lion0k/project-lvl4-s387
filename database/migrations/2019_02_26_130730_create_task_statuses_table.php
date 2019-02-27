@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Carbon\Carbon;
 
 class CreateTaskStatusesTable extends Migration
 {
@@ -24,10 +25,10 @@ class CreateTaskStatusesTable extends Migration
         });
 
         DB::table($this->table)->insert([
-                ['name' => 'New'],
-                ['name' => 'InProgress'],
-                ['name' => 'OnTesting'],
-                ['name' => 'Done'],
+                ['name' => 'New', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['name' => 'InProgress', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['name' => 'OnTesting', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['name' => 'Done', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ]);
     }
 

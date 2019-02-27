@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class TaskStatusController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        //
+        $taskStatuses = TaskStatus::paginate(10);
+        return view('taskstatuses.index', compact('taskStatuses'));
     }
 
     /**
@@ -24,7 +31,7 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('taskstatuses.create');
     }
 
     /**
@@ -35,7 +42,13 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:task_statuses,name'
+        ]);
+
+        $taskstatus = TaskStatus::create($request->all());
+        flash("Task Status&nbsp; \"$taskstatus->name\" &nbsp;has been successfully created!")->success();
+        return redirect()->route('taskstatuses.index');
     }
 
     /**
@@ -52,34 +65,43 @@ class TaskStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \SimpleTaskManager\TaskStatus  $taskStatus
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TaskStatus $taskStatus)
+    public function edit($id)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($id);
+        return view('taskstatuses.edit', compact('taskStatus'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \SimpleTaskManager\TaskStatus  $taskStatus
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TaskStatus $taskStatus)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:task_statuses,name'
+        ]);
+
+        TaskStatus::findOrFail($id)->update($request->all());
+        flash('The task status has been successfully updated')->success();
+        return redirect()->route('taskstatuses.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \SimpleTaskManager\TaskStatus  $taskStatus
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TaskStatus $taskStatus)
+    public function destroy($id)
     {
-        //
+        TaskStatus::findOrFail($id)->delete();
+        flash('The task status has been successfully deleted')->success();
+        return redirect()->route('taskstatuses.index');
     }
 }
