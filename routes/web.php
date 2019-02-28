@@ -24,3 +24,4 @@ Route::patch('/user', 'UserController@update')->name('user.update');
 Route::delete('/user', 'UserController@destroy')->name('user.delete');
 
 Route::resource('taskstatuses', 'TaskStatusController');
+Route::resource('task', 'TaskController');

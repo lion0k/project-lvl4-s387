@@ -5,9 +5,9 @@
         <h1 class="display-6">Users</h1>
         <div class="d-inline-block">
             @if (! $users->isEmpty())
-                <table class="table table-bordered table-white">
-                    <thead>
-                    <tr>
+                <table class="table table-bordered table-white table-sm">
+                    <thead class="thead-dark">
+                    <tr class="text-center">
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>

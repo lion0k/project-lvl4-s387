@@ -4,6 +4,8 @@ namespace SimpleTaskManager\Http\Controllers;
 
 use SimpleTaskManager\Task;
 use Illuminate\Http\Request;
+use SimpleTaskManager\User;
+use SimpleTaskManager\TaskStatus;
 
 class TaskController extends Controller
 {
@@ -24,7 +26,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('task.create', [
+                'users' => User::all(),
+                'taskstatuses' => TaskStatus::all()
+            ]);
     }
 
     /**
