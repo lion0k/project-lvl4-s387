@@ -35,7 +35,7 @@
                 <ul class="navbar-nav mr-auto">
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('task.create') }}">Tasks</a>
+                            <a class="nav-link" href="{{ route('task.index') }}">Tasks</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users') }}">Users</a>

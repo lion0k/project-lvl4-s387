@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h1 class="display-6">Task status</h1>
+        <h1 class="display-6">Tasks</h1>
         <div class="d-inline-block">
-            @if (! $task->isEmpty())
+            @if (! $tasks->isEmpty())
                 <table class="table table-bordered table-white table-sm">
                     <thead class="thead-dark">
                     <tr class="text-center">
@@ -20,9 +20,9 @@
                     @foreach ($tasks as $task)
                         <tr>
                             <td>{{ $task->name }}</td>
-                            <td>{{ $task->creator_id->name }}</td>
-                            <td>{{ $task->assignedTo_id->name }}</td>
-                            <td>{{ $task->status_id->name }}</td>
+                            <td>{{ $task->creator->name ?? ''  }}</td>
+                            <td>{{ $task->assignedTo->name ?? ''  }}</td>
+                            <td>{{ $task->status->name ?? ''  }}</td>
                             <td>{{ $task->tags->pluck('name')->implode(', ') }}</td>
                             <td>
                                 <div class="form-row">
@@ -43,14 +43,18 @@
                 </table>
                 <div>
                     <nav aria-label="Pages">
-                        {{ $task->links() }}
+                        {{ $tasks->links() }}
                     </nav>
                 </div>
+            @else
+                <p>
+                    No tasks found.
+                </p>
             @endif
         </div>
 
         <p class="my-3">
-            <a href="{{ route('taskstatuses.create') }}" class="btn btn-primary">Add new task</a>
+            <a href="{{ route('task.create') }}" class="btn btn-primary">Add new task</a>
         </p>
     </div>
 @endsection
