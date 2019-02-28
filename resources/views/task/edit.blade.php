@@ -9,14 +9,14 @@
                     <div class="card-body">
                         <h5 class="card-title">Update task</h5>
                         <hr>
-                        <form method="POST" action="{{ route('task.edit') }}" aria-label="{{ __('Update') }}">
+                        <form method="POST" action="{{ route('task.update', ['id' => $task->id]) }}" aria-label="{{ __('Update') }}">
                             @csrf
                             @method('PATCH')
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?: $task->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
                                 <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="description" class="form-control" name="description">{{ old('description') }}</textarea>
+                                    <textarea id="description" class="form-control" name="description">{{ old('description') ?: $task->description }}</textarea>
                                 </div>
                             </div>
 
@@ -43,7 +43,7 @@
                                             <option disabled>Not found task statuses. You need to create at least one.</option>
                                         @endif
                                         @foreach ($taskstatuses as $status)
-                                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                            <option value="{{ $status->id }}"{{ $status->id === ($task->status->id ?? '' ) ? 'selected' : '' }}>{{ $status->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -61,7 +61,7 @@
                                 <div class="col-md-6">
                                     <select class="custom-select form-control{{ $errors->has('assignedTo_id') ? ' is-invalid' : '' }}" name="assignedTo_id">
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}"{{ $user->id === (Auth::id() ?? '' ) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}"{{ $user->id === ($task->assignedTo->id ?? '' ) ? 'selected' : '' }}>{{ $user->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -79,7 +79,7 @@
                                 <div class="col-md-6">
                                     <input id="tags" type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid' : '' }}"
                                            placeholder="use the delimiter ',' to enter multiple tags"
-                                           name="tags" value="{{ old('tags') }}">
+                                           name="tags" value="{{ old('tags')?: $tagsNamesStr }}">
 
                                     @if ($errors->has('tags'))
                                         <span class="invalid-feedback">
@@ -92,7 +92,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Create new task') }}
+                                        {{ __('Update task') }}
                                     </button>
                                 </div>
                             </div>

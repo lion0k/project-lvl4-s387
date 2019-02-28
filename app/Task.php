@@ -4,6 +4,7 @@ namespace SimpleTaskManager;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
@@ -13,12 +14,14 @@ class Task extends Model
 
     public function creator()
     {
-        return $this->belongsTo('SimpleTaskManager\User', 'creator_id', 'id');
+        return $this->belongsTo('SimpleTaskManager\User', 'creator_id', 'id')
+            ->withTrashed();
     }
 
     public function assignedTo()
     {
-        return $this->belongsTo('SimpleTaskManager\User', 'assignedTo_id', 'id');
+        return $this->belongsTo('SimpleTaskManager\User', 'assignedTo_id', 'id')
+            ->withTrashed();
     }
 
     public function status()

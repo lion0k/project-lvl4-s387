@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use SimpleTaskManager\User;
 use SimpleTaskManager\TaskStatus;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\Collection;
 use SimpleTaskManager\Tag;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,19 +36,58 @@ class TaskController extends Controller
         if (!$statusId) {
             $validator->errors()->add(
                 'status_id',
-                'Not found this status. Possible it has been deleted.'
+                'Not found this status. Possible status has been deleted.'
             );
         }
 
         if ($assignedToId) {
             $validator->errors()->add(
                 'assignedTo_id',
-                'There is no such user. May be user has been deleted. Choose user again.'
+                'There is no such user. Possible user has been deleted.'
             );
         }
 
         return $validator;
     }
+
+    protected function prepareTags($tags):array
+    {
+        if (empty(trim($tags))) {
+            return [];
+        }
+
+        $inputTags = collect(explode(',', $tags));
+        return $inputTags->map(function ($tag) {
+            return strtolower(trim($tag));
+        })->reject(function ($tag) {
+            return empty($tag);
+        })->unique()
+          ->All();
+    }
+
+    protected function saveTags(array $tags, Task $task)
+    {
+        foreach ($tags as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $task->tags()->attach($tag->id);
+        }
+    }
+
+    protected function checkTrashedUsers(Request $request)
+    {
+        $assignedUser = User::withTrashed()->find($request->assignedTo_id);
+
+        if ($assignedUser->trashed()) {
+            flash('User, on which assigned task, deleted. Please choose another one!')
+                ->error()
+                ->important();
+
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -91,38 +129,32 @@ class TaskController extends Controller
                 ->withInput();
         }
 
-        $task = new Task();
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->status_id = $request->status_id;
-        $task->assignedTo_id = $request->assignedTo_id;
-        $task->creator_id = $user->id;
+        if ($this->checkTrashedUsers($request)) {
+            $task = new Task();
+            $task->name = $request->name;
+            $task->description = $request->description;
+            $task->status_id = $request->status_id;
+            $task->assignedTo_id = $request->assignedTo_id;
+            $task->creator_id = $user->id;
 
-        $task->save();
+            $task->save();
 
-        $inputTags = collect(explode(',', $request->tags));
-        $prepareTags = $inputTags->map(function ($tag) {
-            return strtolower(trim($tag));
-        })->reject(function ($tag) {
-                return empty($tag);
-        })->unique();
+            $prepareTags = $this->prepareTags($request->tags);
+            $this->saveTags($prepareTags, $task);
 
-        foreach ($prepareTags as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-            $task->tags()->attach($tag->id);
+            flash("Task&nbsp; \"$task->name\" &nbsp;has been successfully created!");
         }
 
-        flash("Task&nbsp; \"$task->name\" &nbsp;has been successfully created!");
         return redirect()->route('task.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \SimpleTaskManager\Task  $task
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
         //
     }
@@ -157,7 +189,34 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $user = Auth::user();
+
+        $validator = $this->getValidation($request);
+        if ($validator->fails()) {
+            return redirect()->route('task.edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if ($this->checkTrashedUsers($request)) {
+            $task->name = $request->name;
+            $task->description = $request->description;
+            $task->status_id = $request->status_id;
+
+
+
+            $task->assignedTo_id = $request->assignedTo_id;
+            $task->creator_id = $user->id;
+            $task->save();
+
+            $task->tags()->detach();
+            $prepareTags = $this->prepareTags($request->tags);
+            $this->saveTags($prepareTags, $task);
+
+            flash("Successfully updated '{$task->name}' task")->success();
+        }
+
+        return redirect()->route('task.index');
     }
 
     /**
@@ -168,6 +227,9 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->tags()->detach();
+        Task::findOrFail($task->id)->delete();
+        flash('The task status has been successfully deleted')->success()->important();
+        return redirect()->route('task.index');
     }
 }

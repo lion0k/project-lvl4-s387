@@ -11,6 +11,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Creator</th>
                         <th scope="col">Assigned to</th>
+                        <th scope="col">Description</th>
                         <th scope="col">Status</th>
                         <th scope="col">Tags</th>
                         <th scope="col">Actions</th>
@@ -22,13 +23,14 @@
                             <td>{{ $task->name }}</td>
                             <td>{{ $task->creator->name ?? ''  }}</td>
                             <td>{{ $task->assignedTo->name ?? ''  }}</td>
+                            <td>{{ $task->description }}</td>
                             <td>{{ $task->status->name ?? ''  }}</td>
                             <td>{{ $task->tags->pluck('name')->implode(', ') }}</td>
                             <td>
                                 <div class="form-row">
-                                    <form method="get" action="{{ route('task.show', ['id' => $task->id]) }}">
+                                    <form method="get" action="{{ route('task.edit', ['id' => $task->id]) }}">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-info btn-margin-left15">Show</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-info btn-margin-left15">Edit</button>
                                     </form>
                                     <form method="post" action="{{ route('task.destroy', ['id' => $task->id]) }}">
                                         @method('DELETE')
