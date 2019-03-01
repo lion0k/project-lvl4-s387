@@ -10733,4 +10733,12 @@ body {
   margin-right: 15px;
 }
 
+.word-break {
+  word-break: break-all;
+}
+
+.min-width-for-actions {
+  min-width: 150px;
+}
+
 

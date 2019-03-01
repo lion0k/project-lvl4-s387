@@ -4,14 +4,14 @@ namespace Tests\Feature;
 
 use SimpleTaskManager\TaskStatus;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use SimpleTaskManager\User;
 use Illuminate\Support\Facades\Hash;
 
 class TaskStatusTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected $user;
 

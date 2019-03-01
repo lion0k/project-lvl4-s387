@@ -65,7 +65,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-sm btn-primary">
                                         {{ __('Update profile') }}
                                     </button>
                                 </div>
@@ -83,7 +83,7 @@
                             @method('DELETE')
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-sm btn-danger">
                                         {{ __('Delete profile') }}
                                     </button>
                                 </div>

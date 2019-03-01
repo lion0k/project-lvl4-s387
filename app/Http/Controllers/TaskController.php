@@ -78,7 +78,7 @@ class TaskController extends Controller
         $assignedUser = User::withTrashed()->find($request->assignedTo_id);
 
         if ($assignedUser->trashed()) {
-            flash('User, on which assigned task, deleted. Please choose another one!')
+            flash('User, on which assigned task, possible deleted. Choose another one!')
                 ->error()
                 ->important();
 
@@ -95,8 +95,16 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate(10);
-        return view('task.index', compact('tasks'));
+        $tasks = Task::filterTasks()->paginate(10);
+        $users = User::has('assignedTasks')->get();
+        $tags = Tag::has('tasks')->get();
+        $statuses = TaskStatus::has('tasks')->get();
+
+        return view('task.index')
+            ->with(compact('tasks'))
+            ->with(compact('statuses'))
+            ->with(compact('users'))
+            ->with(compact('tags'));
     }
 
     /**
@@ -202,9 +210,6 @@ class TaskController extends Controller
             $task->name = $request->name;
             $task->description = $request->description;
             $task->status_id = $request->status_id;
-
-
-
             $task->assignedTo_id = $request->assignedTo_id;
             $task->creator_id = $user->id;
             $task->save();
@@ -213,7 +218,7 @@ class TaskController extends Controller
             $prepareTags = $this->prepareTags($request->tags);
             $this->saveTags($prepareTags, $task);
 
-            flash("Successfully updated '{$task->name}' task")->success();
+            flash("Successfully updated '{$task->name}' task")->success()->important();
         }
 
         return redirect()->route('task.index');

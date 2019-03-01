@@ -51,8 +51,8 @@
             @endif
         </div>
 
-        <p class="my-3">
-            <a href="{{ route('taskstatuses.create') }}" class="btn btn-primary">Add task status</a>
+        <p class="my-1">
+            <a href="{{ route('taskstatuses.create') }}" class="btn btn-sm btn-primary">Add task status</a>
         </p>
     </div>
 @endsection

@@ -3,14 +3,14 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use SimpleTaskManager\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testWorkApplication()
     {
@@ -80,6 +80,6 @@ class UserTest extends TestCase
             '_method' => 'DELETE',
             '_token' => csrf_token()
         ])->assertRedirect(route('index'));
-        $this->assertDatabaseMissing('users', ['email' => $user->email]);
+        $this->assertTrue($user->trashed());
     }
 }
