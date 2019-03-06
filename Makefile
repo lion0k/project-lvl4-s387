@@ -53,7 +53,10 @@ assets-watch:
 	@docker-compose exec node yarn run watch
 
 perm:
-	sudo chown ${USER}:${USER} bootstrap/cache -R
-	sudo chown ${USER}:${USER} storage -R
-	if [ -d "node_modules" ]; then sudo chown ${USER}:${USER} node_modules -R; fi
-	if [ -d "public/build" ]; then sudo chown ${USER}:${USER} public/build -R; fi
+	sudo chown ${USER}:docker bootstrap/cache -R
+	sudo chown ${USER}:docker storage -R
+	sudo chmod 777 storage/logs/*.log
+	sudo chmod 777 bootstrap/cache -R
+	sudo chmod 777 storage -R
+	if [ -d "node_modules" ]; then sudo chown ${USER}:docker node_modules -R; fi
+	if [ -d "public/build" ]; then sudo chown ${USER}:docker public/build -R; fi

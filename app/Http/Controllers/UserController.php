@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use SimpleTaskManager\User;
+use DB;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -55,14 +57,18 @@ class UserController extends Controller
 
 
         flash('Your profile has been successfully updated')->success()->important();
-        return redirect('home');
+        return redirect(route('home'));
     }
 
     public function destroy()
     {
-        $user = Auth::user();
-        $user->delete();
-        flash('Your profile has been successfully deleted')->error()->important();
-        return redirect('/');
+        DB::beginTransaction();
+
+        Auth::user()->delete();
+        DB::table('sessions')->delete(Session::getId());
+
+        DB::commit();
+
+        return redirect(route('index'));
     }
 }
