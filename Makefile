@@ -5,10 +5,10 @@ install:
 	composer install
 
 lint:
-	composer --ansi run-script phpcs -- --standard=PSR12 --extensions=php routes tests app/Http
+	composer --ansi run-script phpcs -- --standard=PSR12 --extensions=php routes tests app
 
 lint-fix:
-	composer run-script phpcbf -- --standard=PSR12 --extensions=php routes tests app/Http
+	composer run-script phpcbf -- --standard=PSR12 --extensions=php routes tests app
 
 testTravis:
 	composer run-script phpunit tests

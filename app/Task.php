@@ -46,8 +46,7 @@ class Task extends Model
 
     public function scopeWithTags($query, $tag_id)
     {
-        if ($tag_id)
-        {
+        if ($tag_id) {
             return $query->whereHas('tags', function ($query) use ($tag_id) {
                 $query->where('tag_id', $tag_id);
             });
@@ -57,8 +56,7 @@ class Task extends Model
 
     public function scopeWithCreatedUser($query, $field)
     {
-        if ($field)
-        {
+        if ($field) {
             return $query->where('creator_id', Auth::id());
         }
         return $query;
@@ -66,8 +64,7 @@ class Task extends Model
 
     public function scopeWithStatus($query, $status_id)
     {
-        if ($status_id)
-        {
+        if ($status_id) {
             return $query->where('status_id', $status_id);
         }
         return $query;
@@ -75,11 +72,9 @@ class Task extends Model
 
     public function scopeWithAssignedToUser($query, $user_id)
     {
-        if ($user_id)
-        {
+        if ($user_id) {
             return $query->where('assignedTo_id', $user_id);
         }
         return $query;
     }
 }
-

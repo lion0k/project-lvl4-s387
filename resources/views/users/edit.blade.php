@@ -66,7 +66,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-sm btn-primary">
-                                        {{ __('Update profile') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>
@@ -78,17 +78,12 @@
                     <div class="card-body">
                         <h5 class="card-title">Delete profile</h5>
                         <hr>
-                        <form method="POST" action="{{ route('user.delete') }}" aria-label="{{ __('Delete') }}" class="delete">
-                            @csrf
-                            @method('DELETE')
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        {{ __('Delete profile') }}
-                                    </button>
-                                </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="{{ route('user.delete') }}" class="btn btn-sm btn-danger" data-method="delete"
+                                   data-confirm="Are you sure you want to delete your profile?" rel="nofollow">Delete</a>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

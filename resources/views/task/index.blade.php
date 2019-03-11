@@ -103,15 +103,11 @@
                                 <td>{{ $task->tags->pluck('name')->implode(', ') }}</td>
                                 <td>
                                     <div class="form-row">
-                                        <form method="get" action="{{ route('task.edit', ['id' => $task->id]) }}">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-info btn-margin-left15">Edit</button>
-                                        </form>
-                                        <form method="post" action="{{ route('task.destroy', ['id' => $task->id]) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15" onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
+                                        <a href="{{ route('task.edit', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-info btn-margin-left15"
+                                           rel="nofollow">Edit</a>
+                                        <a href="{{ route('task.destroy', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15"
+                                           data-method="delete"
+                                           data-confirm="Are you sure you want to delete this task?" rel="nofollow">Delete</a>
                                     </div>
                                 </td>
                             </tr>
