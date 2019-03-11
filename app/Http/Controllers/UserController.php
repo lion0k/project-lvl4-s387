@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use SimpleTaskManager\User;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -58,9 +59,9 @@ class UserController extends Controller
         return redirect(route('home'));
     }
 
-    public function destroy(Request $request)
+    public function destroy()
     {
-        $request->session()->flush();
+        Session::flush();
         Auth::user()->delete();
 
         return redirect(route('index'));
