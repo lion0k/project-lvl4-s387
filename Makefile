@@ -49,6 +49,9 @@ assets-install:
 assets-dev:
 	@docker-compose exec node yarn run dev
 
+assets-prod:
+	@docker-compose exec node yarn run prod
+
 assets-watch:
 	@docker-compose exec node yarn run watch
 

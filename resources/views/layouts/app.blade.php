@@ -10,13 +10,6 @@
 
     <title>Simple Task Manager</title>
 
-    <!-- Scripts -->
-    @if (env('APP_ENV') === 'production')
-        <script src="{{ secure_asset('js/app.js') }}" defer></script>
-    @else
-        <script src="{{ asset('js/app.js') }}" defer></script>
-    @endif
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -107,11 +100,11 @@
 
 
 
-{{--<!-- Scripts -->--}}
-    {{--@if (env('APP_ENV') === 'production')--}}
-        {{--<script src="{{ secure_asset('js/app.js') }}" defer></script>--}}
-    {{--@else--}}
-        {{--<script src="{{ asset('js/app.js') }}" defer></script>--}}
-    {{--@endif--}}
+<!-- Scripts -->
+    @if (env('APP_ENV') === 'production')
+        <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    @else
+        <script src="{{ asset('js/app.js') }}" defer></script>
+    @endif
 </body>
 </html>
