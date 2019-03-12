@@ -24,15 +24,13 @@
                             <td class="vertical_align_table_content">{{ $taskstatus->created_at }}</td>
                             <td>
                                 <div class="form-row">
-                                    <form method="get" action="{{ route('taskstatuses.edit', ['id' => $taskstatus->id]) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-info btn-margin-left15">Edit</button>
-                                    </form>
-                                    <form method="post" action="{{ route('taskstatuses.destroy', ['id' => $taskstatus->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15" onclick="return confirm('Are you sure?')">Delete</button>
-                                    </form>
+                                    <a class="btn btn-sm btn-outline-info btn-margin-left15" href="{{ route('taskstatuses.edit', ['id' => $taskstatus->id]) }}">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15"
+                                       href="{{ route('taskstatuses.destroy', ['id' => $taskstatus->id]) }}" data-method="delete"
+                                       data-confirm="Are you sure you want to delete this Task Status?" rel="nofollow">Delete
+                                    </a>
                                 </div>
                             </td>
                         </tr>
