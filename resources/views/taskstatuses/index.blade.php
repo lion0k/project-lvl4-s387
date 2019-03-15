@@ -23,14 +23,20 @@
                             <td class="vertical_align_table_content">{{ $taskstatus->updated_at }}</td>
                             <td class="vertical_align_table_content">{{ $taskstatus->created_at }}</td>
                             <td>
-                                <div class="form-row">
-                                    <a class="btn btn-sm btn-outline-info btn-margin-left15" href="{{ route('taskstatuses.edit', ['id' => $taskstatus->id]) }}">
-                                        Edit
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15"
-                                       href="{{ route('taskstatuses.destroy', ['id' => $taskstatus->id]) }}" data-method="delete"
-                                       data-confirm="Are you sure you want to delete this Task Status?" rel="nofollow">Delete
-                                    </a>
+                                <div class="container">
+                                    <div class="row no-gutters">
+                                        <div class="col-6">
+                                            <a class="btn btn-sm btn-outline-info" href="{{ route('taskstatuses.edit', ['id' => $taskstatus->id]) }}">
+                                                Edit
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class="btn btn-sm btn-outline-danger"
+                                               href="{{ route('taskstatuses.destroy', ['id' => $taskstatus->id]) }}" data-method="delete"
+                                               data-confirm="Are you sure you want to delete this Task Status?" rel="nofollow">Delete
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

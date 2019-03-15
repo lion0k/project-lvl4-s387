@@ -89,25 +89,31 @@
                             <th scope="col">Description</th>
                             <th scope="col">Status</th>
                             <th scope="col">Tags</th>
-                            <th scope="col" class="min-width-for-actions">Actions</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($tasks as $task)
                             <tr>
-                                <td>{{ $task->name }}</td>
-                                <td>{{ $task->creator->name ?? ''  }}</td>
-                                <td>{{ $task->assignedTo->name ?? ''  }}</td>
-                                <td class="word-break">{{ $task->description }}</td>
-                                <td>{{ $task->status->name ?? ''  }}</td>
-                                <td>{{ $task->tags->pluck('name')->implode(', ') }}</td>
+                                <td class="vertical_align_table_content">{{ $task->name }}</td>
+                                <td class="vertical_align_table_content">{{ $task->creator->name ?? ''  }}</td>
+                                <td class="vertical_align_table_content">{{ $task->assignedTo->name ?? ''  }}</td>
+                                <td class="vertical_align_table_content">{{ $task->description }}</td>
+                                <td class="vertical_align_table_content">{{ $task->status->name ?? ''  }}</td>
+                                <td class="vertical_align_table_content">{{ $task->tags->pluck('name')->implode(', ') }}</td>
                                 <td>
-                                    <div class="form-row">
-                                        <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-info btn-margin-left15"
-                                           rel="nofollow">Edit</a>
-                                        <a href="{{ route('tasks.destroy', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15"
-                                           data-method="delete"
-                                           data-confirm="Are you sure you want to delete this task?" rel="nofollow">Delete</a>
+                                    <div class="container">
+                                        <div class="row no-gutters">
+                                            <div class="col-6">
+                                                <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-info"
+                                                   rel="nofollow">Edit</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="{{ route('tasks.destroy', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-danger"
+                                                   data-method="delete"
+                                                   data-confirm="Are you sure you want to delete this task?" rel="nofollow">Delete</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
