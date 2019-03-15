@@ -150,7 +150,7 @@ class TaskController extends Controller
             $prepareTags = $this->prepareTags($request->tags);
             $this->saveTags($prepareTags, $task);
 
-            flash("Task&nbsp; \"$task->name\" &nbsp;has been successfully created!");
+            flash(__('messages.task.store', ['name' => $task->name]))->success();
         }
 
         return redirect()->route('tasks.index');
@@ -218,7 +218,7 @@ class TaskController extends Controller
             $prepareTags = $this->prepareTags($request->tags);
             $this->saveTags($prepareTags, $task);
 
-            flash("Successfully updated '{$task->name}' task")->success()->important();
+            flash(__('messages.task.update', ['name' => $task->name]))->success();
         }
 
         return redirect()->route('tasks.index');
@@ -234,7 +234,7 @@ class TaskController extends Controller
     {
         $task->tags()->detach();
         Task::findOrFail($task->id)->delete();
-        flash('The task status has been successfully deleted')->success()->important();
+        flash(__('messages.task.destroy'))->success();
         return redirect()->route('tasks.index');
     }
 }

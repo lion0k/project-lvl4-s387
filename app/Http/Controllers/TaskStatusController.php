@@ -47,7 +47,7 @@ class TaskStatusController extends Controller
         ]);
 
         $taskstatus = TaskStatus::create($request->all());
-        flash("Task Status&nbsp; \"$taskstatus->name\" &nbsp;has been successfully created!")->success();
+        flash(__('messages.taskstatuses.store', ['name' => $taskstatus->name]))->success();
         return redirect()->route('taskstatuses.index');
     }
 
@@ -88,7 +88,7 @@ class TaskStatusController extends Controller
         ]);
 
         TaskStatus::findOrFail($id)->update($request->all());
-        flash('The task status has been successfully updated')->success();
+        flash(__('messages.taskstatuses.update', ['name' => $request->name]))->success();
         return redirect()->route('taskstatuses.index');
     }
 
@@ -101,7 +101,7 @@ class TaskStatusController extends Controller
     public function destroy($id)
     {
         TaskStatus::findOrFail($id)->delete();
-        flash('The task status has been successfully deleted')->success();
+        flash(__('messages.taskstatuses.destroy'))->success();
         return redirect()->route('taskstatuses.index');
     }
 }
