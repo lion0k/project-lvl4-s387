@@ -24,7 +24,7 @@
                             <td class="vertical_align_table_content">{{ $taskstatus->created_at }}</td>
                             <td>
                                 <div class="container">
-                                    <div class="row no-gutters">
+                                    <div class="flex-center no-gutters">
                                         <div class="col-6">
                                             <a class="btn btn-sm btn-outline-info" href="{{ route('taskstatuses.edit', ['id' => $taskstatus->id]) }}">
                                                 Edit

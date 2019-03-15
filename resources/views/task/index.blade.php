@@ -103,7 +103,7 @@
                                 <td class="vertical_align_table_content">{{ $task->tags->pluck('name')->implode(', ') }}</td>
                                 <td>
                                     <div class="container">
-                                        <div class="row no-gutters">
+                                        <div class="flex-center no-gutters">
                                             <div class="col-6">
                                                 <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-info"
                                                    rel="nofollow">Edit</a>
