@@ -33,14 +33,14 @@ class TaskTest extends TestCase
     public function testGetTaskListForm()
     {
         $this->actingAs($this->user)
-             ->get(route('task.index'))
+             ->get(route('tasks.index'))
              ->assertStatus(Response::HTTP_OK);
     }
 
     public function testGetTaskCreateForm()
     {
         $this->actingAs($this->user)
-             ->get(route('task.create'))
+             ->get(route('tasks.create'))
              ->assertStatus(Response::HTTP_OK);
     }
 
@@ -49,7 +49,7 @@ class TaskTest extends TestCase
         $task = factory(Task::class)->create();
         $data['id'] = $task->id;
         $this->actingAs($this->user)
-             ->get(route('task.update', $data))
+             ->get(route('tasks.update', $data))
              ->assertStatus(Response::HTTP_OK);
     }
 
@@ -64,7 +64,7 @@ class TaskTest extends TestCase
         ];
 
         $this->actingAs($this->user)
-            ->post(route('task.store'), $data)
+            ->post(route('tasks.store'), $data)
             ->assertStatus(Response::HTTP_FOUND);
         $this->assertDatabaseHas('tasks', $data);
     }
@@ -81,7 +81,7 @@ class TaskTest extends TestCase
 
         $task = factory(Task::class)->create();
         $this->actingAs($this->user)
-            ->patch(route('task.update', ['id' => $task->id]), $data)
+            ->patch(route('tasks.update', ['id' => $task->id]), $data)
             ->assertStatus(Response::HTTP_FOUND);
         $this->assertDatabaseHas('tasks', $data);
     }
@@ -90,7 +90,7 @@ class TaskTest extends TestCase
     {
         $task = factory(Task::class)->create();
         $this->actingAs($this->user)
-            ->delete(route('task.destroy', ['id' => $task->id]))
+            ->delete(route('tasks.destroy', ['id' => $task->id]))
             ->assertStatus(Response::HTTP_FOUND);
         $this->assertDatabaseMissing('tasks', ['name' => $task->name]);
     }
@@ -102,13 +102,13 @@ class TaskTest extends TestCase
         factory(Task::class, $countTask)->create();
 
         $response1 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount($countTask, $response1->original->getData()['tasks']);
 
         factory(Task::class, $countTaskByCreator)->create(['creator_id' => $this->user->id]);
         $response2 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount(
             $countTask + $countTaskByCreator,
@@ -116,7 +116,7 @@ class TaskTest extends TestCase
         );
 
         $response3 = $this->actingAs($this->user)
-            ->call('GET', route('task.index'), ['only_me' => 'on'])
+            ->call('GET', route('tasks.index'), ['only_me' => 'on'])
             ->assertStatus(Response::HTTP_OK);
 
         $this->assertCount($countTaskByCreator, $response3->original->getData()['tasks']);
@@ -129,13 +129,13 @@ class TaskTest extends TestCase
         factory(Task::class, $countTask)->create();
 
         $response1 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount($countTask, $response1->original->getData()['tasks']);
 
         factory(Task::class, $countTaskAssignedTo)->create(['assignedTo_id' => $this->user->id]);
         $response2 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount(
             $countTask + $countTaskAssignedTo,
@@ -143,7 +143,7 @@ class TaskTest extends TestCase
         );
 
         $response3 = $this->actingAs($this->user)
-            ->call('GET', route('task.index'), ['assignedTo_id' => "{$this->user->id}"])
+            ->call('GET', route('tasks.index'), ['assignedTo_id' => "{$this->user->id}"])
             ->assertStatus(Response::HTTP_OK);
 
         $this->assertCount($countTaskAssignedTo, $response3->original->getData()['tasks']);
@@ -156,7 +156,7 @@ class TaskTest extends TestCase
         factory(Task::class, $countTask)->create();
 
         $response1 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount($countTask, $response1->original->getData()['tasks']);
 
@@ -164,7 +164,7 @@ class TaskTest extends TestCase
 
         factory(Task::class, $countTaskBySpecialStatus)->create(['status_id' => $status->id]);
         $response2 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount(
             $countTask + $countTaskBySpecialStatus,
@@ -172,7 +172,7 @@ class TaskTest extends TestCase
         );
 
         $response3 = $this->actingAs($this->user)
-            ->call('GET', route('task.index'), ['status_id' => "$status->id"])
+            ->call('GET', route('tasks.index'), ['status_id' => "$status->id"])
             ->assertStatus(Response::HTTP_OK);
 
         $this->assertCount($countTaskBySpecialStatus, $response3->original->getData()['tasks']);
@@ -184,7 +184,7 @@ class TaskTest extends TestCase
         factory(Task::class, $countTask)->create();
 
         $response1 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount($countTask, $response1->original->getData()['tasks']);
 
@@ -200,7 +200,7 @@ class TaskTest extends TestCase
         $dataWithTag = array_merge($data, ['tags' => $tag->name]);
 
         $this->actingAs($this->user)
-            ->post(route('task.store'), $dataWithTag)
+            ->post(route('tasks.store'), $dataWithTag)
             ->assertStatus(Response::HTTP_FOUND);
 
         $this->assertDatabaseHas('tasks', $data);
@@ -208,12 +208,12 @@ class TaskTest extends TestCase
         $this->assertDatabaseHas('task_tag', ['tag_id' => "{$tag->id}"]);
 
         $response2 = $this->actingAs($this->user)
-            ->get(route('task.index'))
+            ->get(route('tasks.index'))
             ->assertStatus(Response::HTTP_OK);
         $this->assertCount($countTask + 1, $response2->original->getData()['tasks']);
 
         $response3 = $this->actingAs($this->user)
-            ->call('GET', route('task.index'), ['tag_id' => "{$tag->id}"])
+            ->call('GET', route('tasks.index'), ['tag_id' => "{$tag->id}"])
             ->assertStatus(Response::HTTP_OK);
 
         $this->assertCount(1, $response3->original->getData()['tasks']);
@@ -232,7 +232,7 @@ class TaskTest extends TestCase
 
         $dataWithTag = array_merge($data, ['tags' => $tag->name]);
         $this->actingAs($this->user)
-            ->post(route('task.store'), $dataWithTag)
+            ->post(route('tasks.store'), $dataWithTag)
             ->assertStatus(Response::HTTP_FOUND);
 
         $this->assertDatabaseHas('tasks', $data);
@@ -248,7 +248,7 @@ class TaskTest extends TestCase
             'tags' => $tag2->name
         ];
         $this->actingAs($this->user)
-            ->post(route('task.store'), $data2)
+            ->post(route('tasks.store'), $data2)
             ->assertStatus(Response::HTTP_FOUND);
 
         $this->assertDatabaseHas('tags', ['name' => "{$tag2->name}"]);
@@ -258,7 +258,7 @@ class TaskTest extends TestCase
             $this->assertDatabaseHas('task_tag', ['tag_id' => $tag->id]);
 
             $response2 = $this->actingAs($this->user)
-                ->call('GET', route('task.index'), ['tag_id' => "{$tag->id}"])
+                ->call('GET', route('tasks.index'), ['tag_id' => "{$tag->id}"])
                 ->assertStatus(Response::HTTP_OK);
 
             $this->assertCount(1, $response2->original->getData()['tasks']);

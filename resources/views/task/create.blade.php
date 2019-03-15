@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Create task</h5>
                         <hr>
-                        <form method="POST" action="{{ route('task.store') }}" aria-label="{{ __('Create') }}">
+                        <form method="POST" action="{{ route('tasks.store') }}" aria-label="{{ __('Create') }}">
                             @csrf
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>

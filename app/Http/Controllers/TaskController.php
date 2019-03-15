@@ -132,7 +132,7 @@ class TaskController extends Controller
 
         $validator = $this->getValidation($request);
         if ($validator->fails()) {
-            return redirect()->route('task.create')
+            return redirect()->route('tasks.create')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -153,7 +153,7 @@ class TaskController extends Controller
             flash("Task&nbsp; \"$task->name\" &nbsp;has been successfully created!");
         }
 
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -201,7 +201,7 @@ class TaskController extends Controller
 
         $validator = $this->getValidation($request);
         if ($validator->fails()) {
-            return redirect()->route('task.edit')
+            return redirect()->route('tasks.edit')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -221,7 +221,7 @@ class TaskController extends Controller
             flash("Successfully updated '{$task->name}' task")->success()->important();
         }
 
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -235,6 +235,6 @@ class TaskController extends Controller
         $task->tags()->detach();
         Task::findOrFail($task->id)->delete();
         flash('The task status has been successfully deleted')->success()->important();
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 }

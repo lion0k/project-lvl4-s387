@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Update task</h5>
                         <hr>
-                        <form method="POST" action="{{ route('task.update', ['id' => $task->id]) }}" aria-label="{{ __('Update') }}">
+                        <form method="POST" action="{{ route('tasks.update', ['id' => $task->id]) }}" aria-label="{{ __('Update') }}">
                             @csrf
                             @method('PATCH')
                             <div class="form-group row">

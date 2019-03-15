@@ -19,13 +19,13 @@
                     <hr>
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <a href="{{ route('task.index') }}">All tasks - {{ \SimpleTaskManager\Task::count() }}</a>
+                            <a href="{{ route('tasks.index') }}">All tasks - {{ \SimpleTaskManager\Task::count() }}</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{{ route('task.index', ['only_me' => 'on']) }}">Tasks created by you - {{ Auth::user()->createdTasks->count() }}</a>
+                            <a href="{{ route('tasks.index', ['only_me' => 'on']) }}">Tasks created by you - {{ Auth::user()->createdTasks->count() }}</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{{ route('task.index', ['assignedTo_id' =>  Auth::id() ]) }}">Tasks assigned to you - {{ Auth::user()->assignedTasks->count() }}</a>
+                            <a href="{{ route('tasks.index', ['assignedTo_id' =>  Auth::id() ]) }}">Tasks assigned to you - {{ Auth::user()->assignedTasks->count() }}</a>
                         </li>
                     </ul>
                 </div>

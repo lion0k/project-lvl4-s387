@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="display-6">Tasks</h1>
         <div class="card-body">
-            <form class="mb-3" action="{{ route('task.index') }}" method="GET">
+            <form class="mb-3" action="{{ route('tasks.index') }}" method="GET">
                 <div class="form-row">
                     <div class="card mb-3">
                         <div class="card-body">
@@ -67,7 +67,7 @@
                                                 <button type="submit" class="btn btn-sm btn-outline-success">Search</button>
                                             </div>
                                             <div class="col-xs-6 p-2">
-                                                <a class="btn btn-sm btn-outline-info" href="{{ route('task.index') }}">Remove filter</a>
+                                                <a class="btn btn-sm btn-outline-info" href="{{ route('tasks.index') }}">Remove filter</a>
                                             </div>
                                         </div>
                                     </div>
@@ -103,9 +103,9 @@
                                 <td>{{ $task->tags->pluck('name')->implode(', ') }}</td>
                                 <td>
                                     <div class="form-row">
-                                        <a href="{{ route('task.edit', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-info btn-margin-left15"
+                                        <a href="{{ route('tasks.edit', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-info btn-margin-left15"
                                            rel="nofollow">Edit</a>
-                                        <a href="{{ route('task.destroy', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15"
+                                        <a href="{{ route('tasks.destroy', ['id' => $task->id]) }}" class="btn btn-sm btn-outline-danger btn-margin-left15 btn-margin-rgt15"
                                            data-method="delete"
                                            data-confirm="Are you sure you want to delete this task?" rel="nofollow">Delete</a>
                                     </div>
@@ -127,7 +127,7 @@
             </div>
 
             <p class="my-1">
-                <a href="{{ route('task.create') }}" class="btn btn-sm btn-primary">Add new task</a>
+                <a href="{{ route('tasks.create') }}" class="btn btn-sm btn-primary">Add new task</a>
             </p>
         </div>
     </div>
